@@ -1,0 +1,7 @@
+# Task Tracker CLI - Requirements
+# This project uses only Python standard library modules
+# No external dependencies required
+
+# For development and testing:
+pytest==5.4.1
+pytest-cov==2.8.1
