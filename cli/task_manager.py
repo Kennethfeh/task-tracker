@@ -49,6 +49,14 @@ class TaskManager:
     def add_task(self, description: str, priority: str = 'medium', 
                  category: str = 'general') -> int:
         """Add a new task."""
+        # Input validation
+        if not description or not description.strip():
+            raise ValueError("Task description cannot be empty")
+        
+        # Sanitize inputs
+        description = description.strip()
+        category = category.strip() if category else 'general'
+        
         task = {
             'id': self._get_next_id(),
             'description': description,

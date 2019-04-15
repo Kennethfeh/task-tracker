@@ -1,6 +1,6 @@
 # Task Tracker CLI - Requirements
-# This project uses only Python standard library modules
-# No external dependencies required
+# API client requires requests library
+requests==2.26.0
 
 # For development and testing:
 pytest==5.4.1

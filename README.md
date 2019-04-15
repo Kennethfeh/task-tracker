@@ -1,109 +1,167 @@
-# Task Tracker CLI
+# Task Tracker
 
-A simple command-line task management tool written in Python with JSON storage.
+A full-stack task management application with CLI, REST API, and React frontend.
+
+## Project Structure
+
+```
+task-tracker/
+├── cli/          # Command-line interface
+├── backend/      # Flask REST API server
+├── frontend/     # React web application
+└── data/         # JSON data storage
+```
 
 ## Features
 
-- Add tasks with priority levels and categories
-- List tasks with flexible filtering options
-- Mark tasks as completed
-- Update task details
-- Delete tasks
-- View task statistics
-- Clear completed tasks
-- Persistent storage using JSON
+- **Multi-interface**: Access via CLI, REST API, or web interface
+- **Task Management**: Create, read, update, and delete tasks
+- **Priority Levels**: Assign low, medium, or high priority to tasks
+- **Categories**: Organize tasks by custom categories
+- **Filtering**: Filter tasks by status, priority, or category
+- **Statistics**: View completion rates and task distribution
+- **Persistent Storage**: JSON-based data persistence
 
-## Installation
+## Quick Start
 
-This project requires Python 3.6 or higher.
+### Backend API
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Start the Flask server:
+   ```bash
+   python app.py
+   ```
+   The API will be available at `http://localhost:5001`
+
+### Frontend Web App
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+   The web app will open at `http://localhost:3000`
+
+### CLI Tool
+
+The CLI can work in two modes:
+
+1. **API Mode** (default): Communicates with the backend API
+   ```bash
+   cd cli
+   python main_api.py add "Complete project documentation"
+   python main_api.py list
+   ```
+
+2. **Local Mode**: Uses local JSON storage directly
+   ```bash
+   cd cli
+   python main.py add "Complete project documentation"
+   python main.py list
+   ```
+
+## API Endpoints
+
+### Tasks
+
+- `GET /api/tasks` - List all tasks with optional filters
+  - Query params: `status`, `priority`, `category`
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/{id}` - Update a task
+- `POST /api/tasks/{id}/complete` - Mark task as completed
+- `DELETE /api/tasks/{id}` - Delete a task
+- `POST /api/tasks/clear-completed` - Clear all completed tasks
+
+### Statistics
+
+- `GET /api/statistics` - Get task statistics
+
+### Health Check
+
+- `GET /api/health` - Check API health status
+
+## CLI Commands
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd task-tracker-cli
+# Add a new task
+python main_api.py add "Task description" -p high -c work
 
-# Install development dependencies (optional)
-pip install -r requirements.txt
+# List tasks
+python main_api.py list -s pending -p high
+
+# Complete a task
+python main_api.py complete 1
+
+# Update a task
+python main_api.py update 1 -d "Updated description" -p low
+
+# Delete a task
+python main_api.py delete 1
+
+# View statistics
+python main_api.py stats
+
+# Clear completed tasks
+python main_api.py clear
 ```
 
-## Usage
+## Development
 
-### Add a task
+### Running Tests
+
+For the CLI:
 ```bash
-python main.py add "Complete project documentation"
-python main.py add "Review pull request" -p high -c work
-python main.py add "Buy groceries" -p low -c personal
-```
-
-### List tasks
-```bash
-# List all tasks
-python main.py list
-
-# List only pending tasks
-python main.py list -s pending
-
-# List tasks by category
-python main.py list -c work
-
-# List high priority tasks
-python main.py list -p high
-```
-
-### Complete a task
-```bash
-python main.py complete 1
-```
-
-### Update a task
-```bash
-python main.py update 1 -d "Updated description"
-python main.py update 1 -p high -c urgent
-```
-
-### Delete a task
-```bash
-python main.py delete 1
-```
-
-### View statistics
-```bash
-python main.py stats
-```
-
-### Clear completed tasks
-```bash
-python main.py clear
-python main.py clear -f  # Skip confirmation
-```
-
-## Task Properties
-
-- **ID**: Unique identifier for each task
-- **Description**: Task description text
-- **Priority**: low, medium (default), or high
-- **Category**: Task category (default: general)
-- **Status**: pending or completed
-- **Created At**: Timestamp when task was created
-- **Completed At**: Timestamp when task was completed
-
-## Data Storage
-
-Tasks are stored in a `tasks.json` file in the current directory. The file is automatically created when you add your first task.
-
-## Testing
-
-Run the test suite:
-```bash
+cd cli
 python -m pytest
-python -m pytest -v  # Verbose output
-python -m pytest --cov=.  # With coverage
 ```
+
+### Technology Stack
+
+- **Backend**: Python 3.7+, Flask, Flask-CORS
+- **Frontend**: React, Axios, React Icons
+- **CLI**: Python with argparse
+- **Storage**: JSON file-based persistence
+
+## Configuration
+
+### Backend Configuration
+
+The backend server runs on port 5001 by default. Modify the `app.py` file to change the port or host.
+
+### Frontend Configuration
+
+The frontend expects the API at `http://localhost:5001`. To use a different API URL, set the `REACT_APP_API_URL` environment variable:
+
+```bash
+REACT_APP_API_URL=http://your-api-url npm start
+```
+
+## Project History
+
+This project was initially created in 2019 as a Python CLI tool and has been enhanced to include a full-stack web application with REST API and React frontend.
 
 ## License
 
-MIT License
+MIT License - Feel free to use this project for personal or commercial purposes.
 
 ## Author
 
-Kenneth Feh (2019)
+Kenneth Feh - 2019
