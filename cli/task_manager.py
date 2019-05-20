@@ -34,6 +34,13 @@ class TaskManager:
     def _save_tasks(self) -> bool:
         """Save tasks to JSON file."""
         try:
+            # Create backup of existing file
+            if os.path.exists(self.data_file):
+                backup_file = f"{self.data_file}.backup"
+                with open(self.data_file, 'r') as src, open(backup_file, 'w') as dst:
+                    dst.write(src.read())
+            
+            # Write new data
             with open(self.data_file, 'w') as f:
                 json.dump(self.tasks, f, indent=2, default=str)
             return True
