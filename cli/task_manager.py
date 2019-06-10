@@ -230,8 +230,8 @@ class TaskManager:
     def _get_priority_symbol(self, priority: str) -> str:
         """Get a visual symbol for priority level."""
         symbols = {
-            'low': '(Low)',
-            'medium': '(Med)',
-            'high': '(HIGH!)'
+            'low': '🟢 Low',
+            'medium': '🟡 Med',
+            'high': '🔴 HIGH!'
         }
-        return symbols.get(priority, '(?)')
+        return symbols.get(priority, '⚪ Unknown')
